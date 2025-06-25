@@ -101,4 +101,14 @@ public class VendaJpaController implements Serializable {
             em.close();
         }
     }
+    
+    public Venda procuraVenda(Integer id) {
+    EntityManager em = getEntityManager();
+    try {
+        return em.find(Venda.class, id);
+    } finally {
+        em.close();
+    }
+}
+
 }

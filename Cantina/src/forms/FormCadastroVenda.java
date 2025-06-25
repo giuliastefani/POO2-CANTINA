@@ -358,6 +358,7 @@ public class FormCadastroVenda extends javax.swing.JFrame {
             todosOsProdutos.clear();
             todosOsProdutos.addAll(produtoController.findProdutoEntities());
             filtrarProdutos();
+           
 
         } catch (EstoqueInsuficienteException | CarrinhoVazioException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Validação", JOptionPane.ERROR_MESSAGE);

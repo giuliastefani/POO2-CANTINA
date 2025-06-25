@@ -69,11 +69,8 @@ public class FormPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnCadastrarProdutos = new javax.swing.JButton();
         BtnAlterarProduto = new javax.swing.JButton();
-        btnAlterarEstoque = new javax.swing.JButton();
         btnCadastrarVenda = new javax.swing.JButton();
         btnDetalhesVenda = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        txtIDVenda = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,13 +125,6 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnAlterarEstoque.setText("Alterar Estoque");
-        btnAlterarEstoque.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlterarEstoqueActionPerformed(evt);
-            }
-        });
-
         btnCadastrarVenda.setText("Cadastrar Venda");
         btnCadastrarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,8 +139,6 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("ID Venda:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -164,19 +152,13 @@ public class FormPrincipal extends javax.swing.JFrame {
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAlterarEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(BtnAlterarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BtnAlterarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnCadastrarProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(141, 141, 141)
                         .addComponent(jLabel1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtIDVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDetalhesVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCadastrarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -196,16 +178,12 @@ public class FormPrincipal extends javax.swing.JFrame {
                                 .addComponent(btnCadastrarProdutos)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BtnAlterarProduto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                        .addComponent(btnAlterarEstoque))
+                        .addGap(0, 42, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCadastrarVenda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnDetalhesVenda)
-                            .addComponent(jLabel2)
-                            .addComponent(txtIDVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnDetalhesVenda)
                         .addGap(29, 29, 29)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -217,6 +195,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProdutosActionPerformed
@@ -237,17 +216,22 @@ public class FormPrincipal extends javax.swing.JFrame {
         formCadastroProduto.setVisible(true);
     }//GEN-LAST:event_BtnAlterarProdutoActionPerformed
 
-    private void btnAlterarEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarEstoqueActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAlterarEstoqueActionPerformed
-
     private void btnCadastrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarVendaActionPerformed
         FormCadastroVenda formCadastroVenda = new FormCadastroVenda(usuarioLogado);
         formCadastroVenda.setVisible(true);
     }//GEN-LAST:event_btnCadastrarVendaActionPerformed
 
     private void btnDetalhesVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhesVendaActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = tblVendas.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecione uma venda para visualizar.", "Nenhuma Venda Selecionada", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Integer idVenda = (Integer) tblVendas.getValueAt(selectedRow, 0);
+
+        FormDetalhesVenda formDetalhesVenda = new FormDetalhesVenda(idVenda);
+        formDetalhesVenda.setVisible(true);
     }//GEN-LAST:event_btnDetalhesVendaActionPerformed
 
     public static void main(String args[]) {
@@ -256,17 +240,14 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAlterarProduto;
-    private javax.swing.JButton btnAlterarEstoque;
     private javax.swing.JButton btnCadastrarProdutos;
     private javax.swing.JButton btnCadastrarVenda;
     private javax.swing.JButton btnDetalhesVenda;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable tblProdutos;
     private javax.swing.JTable tblVendas;
-    private javax.swing.JTextField txtIDVenda;
     // End of variables declaration//GEN-END:variables
 }
