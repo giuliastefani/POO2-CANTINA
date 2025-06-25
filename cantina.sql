@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 25/06/2025 às 20:12
+-- Tempo de geração: 25/06/2025 às 21:10
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -45,6 +45,27 @@ CREATE TABLE `produto` (
   `valor_unitario` decimal(10,2) NOT NULL,
   `quantidade_estoque` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `produto`
+--
+
+INSERT INTO `produto` (`id`, `nome`, `valor_unitario`, `quantidade_estoque`) VALUES
+(1, 'Coca-Cola Lata 350ml', 5.00, 150),
+(2, 'Salgado Assado (Esfiha de Carne)', 7.50, 40),
+(3, 'Pão de Queijo (unidade)', 4.50, 80),
+(4, 'Água Mineral sem Gás 500ml', 3.00, 200),
+(5, 'Suco de Laranja Natural 300ml', 8.00, 25),
+(6, 'Chocolate Kit Kat 41,5g', 4.00, 120),
+(7, 'Salgado Frito (Coxinha de Frango)', 7.50, 45),
+(8, 'Chiclete Trident (unidade)', 2.50, 300),
+(9, 'Café Expresso', 5.50, 100),
+(10, 'Sanduíche Natural de Frango', 12.00, 15),
+(11, 'Bolo de Chocolate (fatia)', 9.00, 10),
+(12, 'Fini Tubes Morango (pacote)', 6.00, 90),
+(13, 'Biscoito Passatempo Recheado', 5.00, 60),
+(14, 'Guaraná Antarctica Lata 350ml', 5.00, 140),
+(15, 'Paçoca (unidade)', 1.50, 250);
 
 -- --------------------------------------------------------
 
@@ -118,7 +139,7 @@ ALTER TABLE `itens_venda`
 -- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
