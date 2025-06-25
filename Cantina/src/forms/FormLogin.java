@@ -2,6 +2,7 @@ package forms;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class FormLogin extends javax.swing.JFrame {
@@ -73,9 +74,19 @@ public class FormLogin extends javax.swing.JFrame {
 
         btnCadastrar.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         btnEntrar.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnEntrar.setText("Entrar");
+        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -128,6 +139,26 @@ public class FormLogin extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        new FormCadastro().setVisible(true); 
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+        // Verifica se o SELECT no banco bate com a tentativa do user
+        String user = "select user";
+        String senha = "select senha";
+        
+        if(true){
+            this.setVisible(false);
+            new FormPrincipal().setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Usuario ou Senha Incorretas");
+        }
+        
+    }//GEN-LAST:event_btnEntrarActionPerformed
 
     public static void main(String args[]) {
         try {

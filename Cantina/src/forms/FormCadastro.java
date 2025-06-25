@@ -123,7 +123,11 @@ public class FormCadastro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // TODO add your handling code here:
+        // Inserir no BD
+        
+        // Abre o Login dnv
+        new FormLogin().setVisible(true); 
+        this.setVisible(false);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     public static void main(String args[]) {
