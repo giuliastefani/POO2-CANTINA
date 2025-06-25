@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23/06/2025 às 18:56
+-- Tempo de geração: 25/06/2025 às 20:12
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -42,7 +42,7 @@ CREATE TABLE `itens_venda` (
 CREATE TABLE `produto` (
   `id` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
-  `valor_unitario` decimal(10,0) NOT NULL,
+  `valor_unitario` decimal(10,2) NOT NULL,
   `quantidade_estoque` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -68,7 +68,7 @@ CREATE TABLE `usuario` (
 CREATE TABLE `venda` (
   `id` int(11) NOT NULL,
   `data` datetime NOT NULL,
-  `valor_total` decimal(10,0) NOT NULL,
+  `valor_total` decimal(10,2) NOT NULL,
   `vendedor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -87,13 +87,15 @@ ALTER TABLE `itens_venda`
 -- Índices de tabela `produto`
 --
 ALTER TABLE `produto`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nome` (`nome`);
 
 --
 -- Índices de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `login` (`login`);
 
 --
 -- Índices de tabela `venda`
@@ -101,6 +103,34 @@ ALTER TABLE `usuario`
 ALTER TABLE `venda`
   ADD PRIMARY KEY (`id`),
   ADD KEY `vendedor` (`vendedor`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `itens_venda`
+--
+ALTER TABLE `itens_venda`
+  MODIFY `id_venda` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `produto`
+--
+ALTER TABLE `produto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `venda`
+--
+ALTER TABLE `venda`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restrições para tabelas despejadas
