@@ -1,12 +1,19 @@
 package forms;
 
+import beans.Usuario;
 import com.formdev.flatlaf.FlatDarkLaf;
+import conn.Emf;
+import dao.UsuarioJpaController;
+import dao.exceptions.LoginJaExistenteException;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class FormCadastro extends javax.swing.JFrame {
+    private UsuarioJpaController usuarioDAO;
 
     public FormCadastro() {
         initComponents();
+        this.usuarioDAO = new UsuarioJpaController(Emf.getEmf());
     }
 
     @SuppressWarnings("unchecked")
@@ -15,11 +22,11 @@ public class FormCadastro extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtUsuarioCadastrar = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtSenhaCadastrar = new javax.swing.JTextField();
+        txtSenha = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtUsuarioCadastrar1 = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnCadastrar = new javax.swing.JButton();
 
@@ -31,17 +38,17 @@ public class FormCadastro extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel2.setText("Usuário:");
 
-        txtUsuarioCadastrar.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        txtUsuario.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel3.setText("Senha:");
 
-        txtSenhaCadastrar.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        txtSenha.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel4.setText("Nome:");
 
-        txtUsuarioCadastrar1.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        txtNome.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -55,9 +62,9 @@ public class FormCadastro extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtSenhaCadastrar, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUsuarioCadastrar, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUsuarioCadastrar1))
+                    .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNome))
                 .addGap(30, 30, 30))
         );
         jPanel1Layout.setVerticalGroup(
@@ -66,15 +73,15 @@ public class FormCadastro extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtUsuarioCadastrar1))
+                    .addComponent(txtNome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtUsuarioCadastrar))
+                    .addComponent(txtUsuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtSenhaCadastrar))
+                    .addComponent(txtSenha))
                 .addGap(31, 31, 31))
         );
 
@@ -122,8 +129,28 @@ public class FormCadastro extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void limparCampos() {
+        txtNome.setText("");
+        txtUsuario.setText("");
+        txtSenha.setText("");
+    }
+    
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // Inserir no BD
+        Usuario user = new Usuario();
+        user.setNome(txtNome.getText());
+        user.setLogin(txtUsuario.getText());
+        user.setSenha(txtSenha.getText());
+        
+        try {
+            this.usuarioDAO.create(user);
+            JOptionPane.showMessageDialog(this, "Usuário criado com sucesso");
+            limparCampos();
+        } catch (LoginJaExistenteException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro inesperado: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
         
         // Abre o Login dnv
         new FormLogin().setVisible(true); 
@@ -156,8 +183,8 @@ public class FormCadastro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtSenhaCadastrar;
-    private javax.swing.JTextField txtUsuarioCadastrar;
-    private javax.swing.JTextField txtUsuarioCadastrar1;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtSenha;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
