@@ -1,6 +1,7 @@
 package beans;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -34,8 +35,8 @@ public class Produto implements Serializable {
     @Column(name = "nome")
     private String nome;
     @Basic(optional = false)
-    @Column(name = "valor_unitario")
-    private long valorUnitario;
+    @Column(name = "valor_unitario", precision = 10, scale = 2)
+    private BigDecimal valorUnitario;
     @Basic(optional = false)
     @Column(name = "quantidade_estoque")
     private int quantidadeEstoque;
@@ -49,7 +50,7 @@ public class Produto implements Serializable {
         this.id = id;
     }
 
-    public Produto(Integer id, String nome, long valorUnitario, int quantidadeEstoque) {
+    public Produto(Integer id, String nome, BigDecimal valorUnitario, int quantidadeEstoque) {
         this.id = id;
         this.nome = nome;
         this.valorUnitario = valorUnitario;
@@ -72,11 +73,11 @@ public class Produto implements Serializable {
         this.nome = nome;
     }
 
-    public long getValorUnitario() {
+    public BigDecimal getValorUnitario() {
         return valorUnitario;
     }
 
-    public void setValorUnitario(long valorUnitario) {
+    public void setValorUnitario(BigDecimal valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
 

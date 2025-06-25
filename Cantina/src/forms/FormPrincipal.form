@@ -115,8 +115,8 @@
               <Table columnCount="4" rowCount="4">
                 <Column editable="true" title="ID Produto" type="java.lang.Integer"/>
                 <Column editable="true" title="Nome" type="java.lang.String"/>
-                <Column editable="true" title="Estoque" type="java.lang.Integer"/>
                 <Column editable="true" title="Valor Unitario" type="java.lang.Double"/>
+                <Column editable="true" title="Estoque" type="java.lang.Integer"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

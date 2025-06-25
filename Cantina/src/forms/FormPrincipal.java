@@ -34,7 +34,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             });
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -63,11 +63,11 @@ public class FormPrincipal extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID Produto", "Nome", "Estoque", "Valor Unitario"
+                "ID Produto", "Nome", "Valor Unitario", "Estoque"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {

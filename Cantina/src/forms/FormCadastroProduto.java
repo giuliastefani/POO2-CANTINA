@@ -4,6 +4,7 @@ import beans.Produto;
 import com.formdev.flatlaf.FlatDarkLaf;
 import dao.ProdutoJpaController;
 import dao.exceptions.NomeJaExistenteException;
+import java.math.BigDecimal;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.JFrame;
@@ -168,7 +169,7 @@ public class FormCadastroProduto extends javax.swing.JFrame {
             }
 
             String nome = txtNome.getText().trim();
-            long valor = Long.parseLong(txtValorUnitario.getText().replace(",", "."));
+            BigDecimal valor = new BigDecimal(txtValorUnitario.getText().replace(",", "."));
             int quantidade = Integer.parseInt(txtQtdEstoque.getText());
             
             Produto produto = new Produto();
@@ -176,10 +177,10 @@ public class FormCadastroProduto extends javax.swing.JFrame {
             produto.setValorUnitario(valor);
             produto.setQuantidadeEstoque(quantidade);
 
-            if (idProdutoEmEdicao == null) { // --- MODO CADASTRO ---
+            if (idProdutoEmEdicao == null) { // CADASTRO
                 produtoController.create(produto);
                 JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
-            } else { // --- MODO ALTERAÇÃO ---
+            } else { // ALTERAÇÃO
                 produto.setId(idProdutoEmEdicao);
                 produtoController.edit(produto);
                 JOptionPane.showMessageDialog(this, "Produto alterado com sucesso!");
