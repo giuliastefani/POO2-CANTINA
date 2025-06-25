@@ -11,7 +11,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class FormCadastro extends javax.swing.JFrame {
-    private UsuarioJpaController usuarioDAO;
+    private final UsuarioJpaController usuarioDAO;
 
     public FormCadastro() {
         initComponents();
@@ -26,9 +26,9 @@ public class FormCadastro extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
+        txtSenha = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         btnCadastrar = new javax.swing.JButton();
 
@@ -45,12 +45,12 @@ public class FormCadastro extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel3.setText("Senha:");
 
-        txtSenha.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-
         jLabel4.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel4.setText("Nome:");
 
         txtNome.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+
+        txtSenha.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -64,9 +64,9 @@ public class FormCadastro extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNome))
+                    .addComponent(txtNome)
+                    .addComponent(txtSenha))
                 .addGap(30, 30, 30))
         );
         jPanel1Layout.setVerticalGroup(
@@ -83,7 +83,7 @@ public class FormCadastro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtSenha))
+                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31))
         );
 
@@ -107,7 +107,7 @@ public class FormCadastro extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(70, 70, 70))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(158, 158, 158)
+                .addGap(203, 203, 203)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(159, 159, 159))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -138,25 +138,28 @@ public class FormCadastro extends javax.swing.JFrame {
     }
     
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // Inserir no BD
         Usuario user = new Usuario();
         user.setNome(txtNome.getText());
         user.setLogin(txtUsuario.getText());
-        user.setSenha(txtSenha.getText());
         
+        char[] senhaChars = txtSenha.getPassword();
+
+        String senhaComoString = new String(senhaChars);
+        user.setSenha(senhaComoString);
+        java.util.Arrays.fill(senhaChars, '0');
+
         try {
             this.usuarioDAO.create(user);
             JOptionPane.showMessageDialog(this, "Usuário criado com sucesso");
             limparCampos();
+            new FormLogin().setVisible(true); 
+            this.dispose();
+
         } catch (LoginJaExistenteException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(this, "Ocorreu um erro inesperado: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-        
-        // Abre o Login dnv
-        new FormLogin().setVisible(true); 
-        this.setVisible(false);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     public static void main(String args[]) {
@@ -182,7 +185,7 @@ public class FormCadastro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtSenha;
+    private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

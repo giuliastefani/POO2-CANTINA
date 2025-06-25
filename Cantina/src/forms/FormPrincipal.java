@@ -73,6 +73,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnDetalhesVenda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
