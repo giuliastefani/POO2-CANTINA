@@ -27,8 +27,9 @@ public class FormCadastroVenda extends javax.swing.JFrame {
     private final Usuario usuarioLogado;
     private final List<Produto> todosOsProdutos;
     private final Map<Produto, Integer> carrinhoDeCompras;
+    private final FormPrincipal formPrincipal;
 
-    public FormCadastroVenda(Usuario usuarioLogado) {
+    public FormCadastroVenda(Usuario usuarioLogado, FormPrincipal parent) {
         initComponents();
         setLocationRelativeTo(null);
 
@@ -38,6 +39,7 @@ public class FormCadastroVenda extends javax.swing.JFrame {
         this.usuarioLogado = usuarioLogado;
         this.todosOsProdutos = produtoController.findProdutoEntities();
         this.carrinhoDeCompras = new LinkedHashMap<>();
+        this.formPrincipal = parent;
 
         atualizarTabelaProdutosDisponiveis(todosOsProdutos);
         configurarBuscaAutomatica();
@@ -365,6 +367,9 @@ public class FormCadastroVenda extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocorreu um erro crítico ao registrar a venda.\n" + e.getMessage(), "Erro Inesperado", JOptionPane.ERROR_MESSAGE);
         }
+        
+        formPrincipal.atualizarTabelaProdutos();
+        formPrincipal.atualizarTabelaVendas();
         this.dispose();
     }//GEN-LAST:event_btnFinalizarVendaActionPerformed
 

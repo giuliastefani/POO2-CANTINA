@@ -77,7 +77,6 @@
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -101,10 +100,10 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="ID Produto" type="java.lang.Integer"/>
-                <Column editable="true" title="Nome" type="java.lang.String"/>
-                <Column editable="true" title="Valor Unitario" type="java.lang.Double"/>
-                <Column editable="true" title="Estoque" type="java.lang.Integer"/>
+                <Column editable="false" title="ID Produto" type="java.lang.Integer"/>
+                <Column editable="false" title="Nome" type="java.lang.String"/>
+                <Column editable="false" title="Valor Unitario" type="java.lang.Double"/>
+                <Column editable="false" title="Estoque" type="java.lang.Integer"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -149,10 +148,10 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="ID Venda" type="java.lang.Object"/>
-                <Column editable="true" title="Vendedor" type="java.lang.Object"/>
-                <Column editable="true" title="Data e Hora" type="java.lang.Object"/>
-                <Column editable="true" title="Valor Total" type="java.lang.Object"/>
+                <Column editable="false" title="ID Venda" type="java.lang.Object"/>
+                <Column editable="false" title="Vendedor" type="java.lang.Object"/>
+                <Column editable="false" title="Data e Hora" type="java.lang.Object"/>
+                <Column editable="false" title="Valor Total" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

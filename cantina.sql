@@ -44,16 +44,16 @@ ALTER TABLE `venda`
   ADD KEY `vendedor` (`vendedor`);
 
 ALTER TABLE `itens_venda`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `venda`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `itens_venda`
   ADD CONSTRAINT `fk_itens_venda_produto` FOREIGN KEY (`id_produto`) REFERENCES `produto` (`id`),
@@ -62,3 +62,19 @@ ALTER TABLE `itens_venda`
 ALTER TABLE `venda`
   ADD CONSTRAINT `venda_ibfk_1` FOREIGN KEY (`vendedor`) REFERENCES `usuario` (`id`);
 COMMIT;
+
+INSERT INTO produto (nome, valor_unitario, quantidade_estoque) VALUES ('Coca-Cola Lata 350ml', 5.00, 150);
+INSERT INTO produto (nome, valor_unitario, quantidade_estoque) VALUES ('Salgado Assado (Esfiha de Carne)', 7.50, 40);
+INSERT INTO produto (nome, valor_unitario, quantidade_estoque) VALUES ('Pão de Queijo (unidade)', 4.50, 80);
+INSERT INTO produto (nome, valor_unitario, quantidade_estoque) VALUES ('Água Mineral sem Gás 500ml', 3.00, 200);
+INSERT INTO produto (nome, valor_unitario, quantidade_estoque) VALUES ('Suco de Laranja Natural 300ml', 8.00, 25);
+INSERT INTO produto (nome, valor_unitario, quantidade_estoque) VALUES ('Chocolate Kit Kat 41,5g', 4.00, 120);
+INSERT INTO produto (nome, valor_unitario, quantidade_estoque) VALUES ('Salgado Frito (Coxinha de Frango)', 7.50, 45);
+INSERT INTO produto (nome, valor_unitario, quantidade_estoque) VALUES ('Chiclete Trident (unidade)', 2.50, 300);
+INSERT INTO produto (nome, valor_unitario, quantidade_estoque) VALUES ('Café Expresso', 5.50, 100);
+INSERT INTO produto (nome, valor_unitario, quantidade_estoque) VALUES ('Sanduíche Natural de Frango', 12.00, 15);
+INSERT INTO produto (nome, valor_unitario, quantidade_estoque) VALUES ('Bolo de Chocolate (fatia)', 9.00, 10);
+INSERT INTO produto (nome, valor_unitario, quantidade_estoque) VALUES ('Fini Tubes Morango (pacote)', 6.00, 90);
+INSERT INTO produto (nome, valor_unitario, quantidade_estoque) VALUES ('Biscoito Passatempo Recheado', 5.00, 60);
+INSERT INTO produto (nome, valor_unitario, quantidade_estoque) VALUES ('Guaraná Antarctica Lata 350ml', 5.00, 140);
+INSERT INTO produto (nome, valor_unitario, quantidade_estoque) VALUES ('Paçoca (unidade)', 1.50, 250);

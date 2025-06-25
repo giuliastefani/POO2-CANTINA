@@ -88,9 +88,16 @@ public class FormPrincipal extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tblProdutos);
@@ -105,7 +112,15 @@ public class FormPrincipal extends javax.swing.JFrame {
             new String [] {
                 "ID Venda", "Vendedor", "Data e Hora", "Valor Total"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tblVendas);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -185,7 +200,6 @@ public class FormPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDetalhesVenda)
                         .addGap(29, 29, 29)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,7 +231,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnAlterarProdutoActionPerformed
 
     private void btnCadastrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarVendaActionPerformed
-        FormCadastroVenda formCadastroVenda = new FormCadastroVenda(usuarioLogado);
+        FormCadastroVenda formCadastroVenda = new FormCadastroVenda(usuarioLogado, this);
         formCadastroVenda.setVisible(true);
     }//GEN-LAST:event_btnCadastrarVendaActionPerformed
 
