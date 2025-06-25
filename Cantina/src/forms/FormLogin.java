@@ -1,14 +1,23 @@
 package forms;
 
+import beans.Usuario;
 import com.formdev.flatlaf.FlatDarkLaf;
+import dao.UsuarioJpaController;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class FormLogin extends javax.swing.JFrame {
+    
+    private final UsuarioJpaController usuarioController;
 
     public FormLogin() {
         initComponents();
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CantinaPU");
+        usuarioController = new UsuarioJpaController(emf);
     }
 
     @SuppressWarnings("unchecked")
@@ -25,7 +34,7 @@ public class FormLogin extends javax.swing.JFrame {
         btnCadastrar = new javax.swing.JButton();
         btnEntrar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SGBC - Entrar");
         setName("Login"); // NOI18N
         setResizable(false);
@@ -146,17 +155,25 @@ public class FormLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        // Verifica se o SELECT no banco bate com a tentativa do user
-        String user = "select user";
-        String senha = "select senha";
+        String login = txtUsuario.getText();
+        String senha = txtSenha.getText();
 
-        if (true) {
-            this.setVisible(false);
-            new FormPrincipal().setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuario ou Senha Incorretas");
+        if (login.trim().isEmpty() || senha.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, preencha os campos de login e senha.", "Campos Vazios", JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
+        Usuario usuarioAutenticado = autenticar(login, senha);
+
+        if (usuarioAutenticado != null) {
+            JOptionPane.showMessageDialog(this, "Bem-vindo, " + usuarioAutenticado.getNome() + "!", "Login bem-sucedido", JOptionPane.INFORMATION_MESSAGE);
+            
+            FormPrincipal formPrincipal = new FormPrincipal(usuarioAutenticado);
+            formPrincipal.setVisible(true);
+            this.dispose(); 
+        } else {
+            JOptionPane.showMessageDialog(this, "Login ou senha inválidos. Tente novamente.", "Erro de Autenticação", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     public static void main(String args[]) {
@@ -169,6 +186,14 @@ public class FormLogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new FormLogin().setVisible(true);
         });
+    }
+    
+    private Usuario autenticar(String login, String senha) {
+        Usuario usuario = usuarioController.findUsuarioByLogin(login);
+        if (usuario != null && usuario.getSenha().equals(senha)) {
+            return usuario;
+        }
+        return null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

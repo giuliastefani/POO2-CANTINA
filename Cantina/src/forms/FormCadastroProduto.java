@@ -177,16 +177,16 @@ public class FormCadastroProduto extends javax.swing.JFrame {
             produto.setValorUnitario(valor);
             produto.setQuantidadeEstoque(quantidade);
 
-            if (idProdutoEmEdicao == null) { // CADASTRO
+            if (idProdutoEmEdicao == null) {
                 produtoController.create(produto);
                 JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
-            } else { // ALTERAÇÃO
+            } else {
                 produto.setId(idProdutoEmEdicao);
                 produtoController.edit(produto);
                 JOptionPane.showMessageDialog(this, "Produto alterado com sucesso!");
             }
             
-            formPrincipal.atualizarTabela();
+            formPrincipal.atualizarTabelaProdutos();
             this.dispose();
 
         } catch (NumberFormatException e) {
@@ -195,7 +195,6 @@ public class FormCadastroProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Duplicidade", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocorreu um erro inesperado: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

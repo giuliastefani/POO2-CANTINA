@@ -3,10 +3,12 @@ package beans;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,8 +42,8 @@ public class Produto implements Serializable {
     @Basic(optional = false)
     @Column(name = "quantidade_estoque")
     private int quantidadeEstoque;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProduto")
-    private Collection<ItensVenda> itensVendaCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produto", fetch = FetchType.LAZY)
+    private List<ItensVenda> itensVendaCollection;
 
     public Produto() {
     }
@@ -93,7 +95,7 @@ public class Produto implements Serializable {
         return itensVendaCollection;
     }
 
-    public void setItensVendaCollection(Collection<ItensVenda> itensVendaCollection) {
+    public void setItensVendaCollection(List<ItensVenda> itensVendaCollection) {
         this.itensVendaCollection = itensVendaCollection;
     }
 

@@ -1,11 +1,15 @@
 package beans;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,7 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,26 +38,27 @@ public class Venda implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "data")
+    @Column(name = "data", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date data;
     @Basic(optional = false)
-    @Column(name = "valor_total")
-    private long valorTotal;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "venda")
-    private ItensVenda itensVenda;
-    @JoinColumn(name = "vendedor", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @Column(name = "valor_total", precision = 10, scale = 2, nullable = false)
+    private BigDecimal valorTotal;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "venda", fetch = FetchType.LAZY)
+    private List<ItensVenda> itensVendaList;
+    @JoinColumn(name = "vendedor", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Usuario vendedor;
 
     public Venda() {
+        this.itensVendaList = new ArrayList<>();
     }
 
     public Venda(Integer id) {
         this.id = id;
     }
 
-    public Venda(Integer id, Date data, long valorTotal) {
+    public Venda(Integer id, Date data, BigDecimal valorTotal) {
         this.id = id;
         this.data = data;
         this.valorTotal = valorTotal;
@@ -75,20 +80,12 @@ public class Venda implements Serializable {
         this.data = data;
     }
 
-    public long getValorTotal() {
+    public BigDecimal getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(long valorTotal) {
+    public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
-    }
-
-    public ItensVenda getItensVenda() {
-        return itensVenda;
-    }
-
-    public void setItensVenda(ItensVenda itensVenda) {
-        this.itensVenda = itensVenda;
     }
 
     public Usuario getVendedor() {
@@ -97,6 +94,14 @@ public class Venda implements Serializable {
 
     public void setVendedor(Usuario vendedor) {
         this.vendedor = vendedor;
+    }
+    
+    public List<ItensVenda> getItensVendaList() {
+        return itensVendaList;
+    }
+
+    public void setItensVendaList(List<ItensVenda> itensVendaList) {
+        this.itensVendaList = itensVendaList;
     }
 
     @Override

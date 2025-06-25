@@ -1,7 +1,10 @@
 package forms;
 
 import beans.Produto;
+import beans.Usuario;
+import beans.Venda;
 import dao.ProdutoJpaController;
+import dao.VendaJpaController;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -11,16 +14,21 @@ import javax.swing.table.DefaultTableModel;
 public class FormPrincipal extends javax.swing.JFrame {
     
     private final ProdutoJpaController produtoController;
+    private final VendaJpaController vendaController;
     private final EntityManagerFactory emf;
+    private final Usuario usuarioLogado;
 
-    public FormPrincipal() {
+    public FormPrincipal(Usuario usuarioLogado) {
         initComponents();
         emf = Persistence.createEntityManagerFactory("CantinaPU");
         produtoController = new ProdutoJpaController(emf);
-        atualizarTabela();
+        vendaController = new VendaJpaController(emf);
+        this.usuarioLogado = usuarioLogado;
+        atualizarTabelaProdutos();
+        atualizarTabelaVendas();
     }
     
-    public final void atualizarTabela() {
+    public final void atualizarTabelaProdutos() {
         DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
         model.setRowCount(0);
 
@@ -31,6 +39,20 @@ public class FormPrincipal extends javax.swing.JFrame {
                 p.getNome(),
                 p.getValorUnitario(),
                 p.getQuantidadeEstoque()
+            });
+        }
+    }
+
+    public final void atualizarTabelaVendas() {
+        DefaultTableModel model = (DefaultTableModel) tblVendas.getModel();
+        model.setRowCount(0);
+        List<Venda> vendas = vendaController.findVendaEntities();
+        for (Venda v : vendas) {
+            model.addRow(new Object[]{
+                v.getId(),
+                v.getVendedor().getNome(),
+                v.getData(),
+                v.getValorTotal()
             });
         }
     }
@@ -220,7 +242,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlterarEstoqueActionPerformed
 
     private void btnCadastrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarVendaActionPerformed
-        // TODO add your handling code here:
+        FormCadastroVenda formCadastroVenda = new FormCadastroVenda(usuarioLogado);
+        formCadastroVenda.setVisible(true);
     }//GEN-LAST:event_btnCadastrarVendaActionPerformed
 
     private void btnDetalhesVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhesVendaActionPerformed
@@ -229,11 +252,6 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormPrincipal().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
