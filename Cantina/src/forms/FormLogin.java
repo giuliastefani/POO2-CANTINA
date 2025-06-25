@@ -1,9 +1,9 @@
 package forms;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLaf;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class FormLogin extends javax.swing.JFrame {
 
@@ -141,7 +141,7 @@ public class FormLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        new FormCadastro().setVisible(true); 
+        new FormCadastro().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -149,27 +149,25 @@ public class FormLogin extends javax.swing.JFrame {
         // Verifica se o SELECT no banco bate com a tentativa do user
         String user = "select user";
         String senha = "select senha";
-        
-        if(true){
+
+        if (true) {
             this.setVisible(false);
             new FormPrincipal().setVisible(true);
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(this, "Usuario ou Senha Incorretas");
         }
-        
+
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     public static void main(String args[]) {
         try {
-            UIManager.setLookAndFeel( new FlatDarkLaf() );
-        } catch( Exception ex ) {
-            System.err.println( "Failed to initialize LaF" );
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+        } catch (UnsupportedLookAndFeelException ex) {
+            System.err.println("Failed to initialize LaF");
         }
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormLogin().setVisible(true);
-            }
+
+        java.awt.EventQueue.invokeLater(() -> {
+            new FormLogin().setVisible(true);
         });
     }
 

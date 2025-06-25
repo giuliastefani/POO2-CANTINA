@@ -5,8 +5,10 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import conn.Emf;
 import dao.UsuarioJpaController;
 import dao.exceptions.LoginJaExistenteException;
+import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class FormCadastro extends javax.swing.JFrame {
     private UsuarioJpaController usuarioDAO;
@@ -148,7 +150,7 @@ public class FormCadastro extends javax.swing.JFrame {
             limparCampos();
         } catch (LoginJaExistenteException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(this, "Ocorreu um erro inesperado: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
         
@@ -160,19 +162,15 @@ public class FormCadastro extends javax.swing.JFrame {
     public static void main(String args[]) {
         try {
             UIManager.setLookAndFeel( new FlatDarkLaf() );
-        } catch( Exception ex ) {
+        } catch( UnsupportedLookAndFeelException ex ) {
             System.err.println( "Failed to initialize LaF" );
         }
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormLogin().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new FormLogin().setVisible(true);
         });
         
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormCadastro().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new FormCadastro().setVisible(true);
         });
     }
 
